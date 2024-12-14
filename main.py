@@ -1,10 +1,14 @@
 import ptbot
-import os
+from environs import Env
 from pytimeparse import parse
 
 
-TG_TOKEN = (os.environ['TG_TOKEN'])
-TG_CHAT_ID = (os.environ['TG_CHAT_ID'])
+env = Env()
+env.read_env()
+
+
+TG_TOKEN = env('TG_TOKEN')
+TG_CHAT_ID = env('TG_CHAT_ID')
 
 
 def timer(chat_id, text):
@@ -33,7 +37,7 @@ def notify_progress(secs_left, chat_id, message_id, text):
                     f"""Осталось {secs_left} секунд\n
                     {render_progressbar(parse(text), result)}"""
                     )
-    bot.update_message(TG_CHAT_ID, message_id, update_message)
+    bot.update_message(chat_id, message_id, update_message)
 
 
 def render_progressbar(total, iteration, prefix='', suffix='', length=30, fill='█', zfill='░'):
@@ -46,6 +50,8 @@ def render_progressbar(total, iteration, prefix='', suffix='', length=30, fill='
 
 
 if __name__ == '__main__':
+    env = Env()
+    env.read_env()
     bot = ptbot.Bot(TG_TOKEN)
     bot.reply_on_message(create_countdown)
     bot.run_bot()
