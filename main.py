@@ -1,14 +1,12 @@
 import ptbot
-from environs import Env
+import os
 from pytimeparse import parse
+from dotenv import load_dotenv
+load_dotenv()
 
 
-env = Env()
-env.read_env()
-
-
-TG_TOKEN = env('TG_TOKEN')
-TG_CHAT_ID = env('TG_CHAT_ID')
+TG_TOKEN = os.getenv('TG_TOKEN')
+TG_CHAT_ID = os.getenv('TG_CHAT_ID')
 
 
 def timer(chat_id, text):
@@ -50,8 +48,6 @@ def render_progressbar(total, iteration, prefix='', suffix='', length=30, fill='
 
 
 if __name__ == '__main__':
-    env = Env()
-    env.read_env()
     bot = ptbot.Bot(TG_TOKEN)
     bot.reply_on_message(create_countdown)
     bot.run_bot()
