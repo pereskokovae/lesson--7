@@ -4,13 +4,7 @@ from pytimeparse import parse
 from dotenv import load_dotenv
 
 
-def main():
-    load_dotenv()
-
-    tg_token = os.getenv('TG_TOKEN')
-    bot = ptbot.Bot(tg_token)
-
-
+def bot_functions(main):
     def timer(chat_id, text):
         bot.create_timer(parse(text), choose, chat_id=chat_id, text=text)
 
@@ -51,6 +45,16 @@ def main():
 
     bot.reply_on_message(create_countdown)
     bot.run_bot()
+
+
+def main():
+    load_dotenv()
+
+    tg_token = os.getenv('TG_TOKEN')
+    bot = ptbot.Bot(tg_token)
+
+
+    bot_functions(main)
 
 
 if __name__ == '__main__':
