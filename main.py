@@ -1,3 +1,14 @@
+import ptbot
+import os
+from pytimeparse import parse
+from dotenv import load_dotenv
+from functools import partial
+
+
+def timer(chat_id, text, bot):
+    bot.create_timer(parse(text), choose, chat_id=chat_id, text=text, bot=bot)
+
+
 def choose(chat_id, text, bot):
     bot.send_message(chat_id, "Время вышло!")
 
