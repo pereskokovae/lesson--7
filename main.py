@@ -46,13 +46,9 @@ def render_progressbar(total, iteration, prefix='', suffix='', length=30, fill='
 
 def main():
     load_dotenv()
-
-
     tg_token = os.getenv('TG_TOKEN')
     bot = ptbot.Bot(tg_token)
     create_countdown_partial = partial(create_countdown, bot=bot)
-
-
     bot.reply_on_message(create_countdown_partial)
     bot.run_bot()
 
